@@ -1,34 +1,61 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Multi-game arcade with WASD and arrow key controls",
+  "summary": "Vehicle building game with parts placement and free drive mode",
   "architectural_notes": [
-    "All games support both WASD and arrow key controls simultaneously for player movement"
+    "Game includes building mode and drive mode toggle",
+    "Drive mode uses WASD keyboard controls",
+    "Third-person camera follows vehicle during drive mode",
+    "Physics system uses moderate realism with momentum and friction"
   ],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-update-snakegame-to-accept-both-wasd-keys-w-up-a-left-s-down-d-right-and-arrow-keys-for-directional-movement-allowing-both-control-schemes-to-work-simultaneously",
-      "title": "Update SnakeGame to accept both WASD keys (W=up, A=left, S=down, D=right) and arrow keys for directional movement, allowing both control schemes to work simultaneously",
+      "id": "feature-add-a-drive-mode-toggle-button-to-the-assembly-game-ui-that-switches-between-build-mode-and-drive-mode",
+      "title": "Add a 'Drive Mode' toggle button to the assembly game UI that switches between Build Mode and Drive Mode",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-update-breakoutgame-to-accept-both-wasd-keys-a-left-d-right-and-arrow-keys-arrowleft-arrowright-for-paddle-movement-allowing-both-control-schemes-to-work-simultaneously",
-      "title": "Update BreakoutGame to accept both WASD keys (A=left, D=right) and arrow keys (ArrowLeft, ArrowRight) for paddle movement, allowing both control schemes to work simultaneously",
+      "id": "feature-implement-wasd-keyboard-controls-for-driving-the-assembled-vehicle-in-drive-mode-w-forward-s-backward-a-turn-left-d-turn-right",
+      "title": "Implement WASD keyboard controls for driving the assembled vehicle in Drive Mode (W=forward, S=backward, A=turn left, D=turn right)",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-third-person-camera-view-that-follows-behind-the-assembled-vehicle-during-drive-mode",
+      "title": "Implement a third-person camera view that follows behind the assembled vehicle during Drive Mode",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
     },
     {
-      "id": "feature-update-the-gamecontrolsoverlay-component-to-display-both-wasd-and-arrow-key-controls-for-each-game-in-the-controls-dialog",
-      "title": "Update the GameControlsOverlay component to display both WASD and arrow key controls for each game in the controls dialog",
+      "id": "feature-implement-moderately-realistic-vehicle-physics-with-momentum-friction-and-turning-dynamics-that-are-fun-to-control",
+      "title": "Implement moderately realistic vehicle physics with momentum, friction, and turning dynamics that are fun to control",
       "reqIds": [
         "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-disable-part-placement-inventory-interaction-and-assembly-mechanics-when-drive-mode-is-active",
+      "title": "Disable part placement, inventory interaction, and assembly mechanics when Drive Mode is active",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-allow-driving-only-when-at-least-a-chassis-part-has-been-placed-in-the-assembly",
+      "title": "Allow driving only when at least a chassis part has been placed in the assembly",
+      "reqIds": [
+        "REQ-6"
       ],
       "version": 1
     }
@@ -36,21 +63,13 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add WASD and arrow key controls to all games for movement",
+      "summary": "Add free use/drive mode with WASD controls, third-person camera, and moderately realistic physics",
       "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Update PongGame to accept both WASD keys (W=up, S=down) and arrow keys (ArrowUp, ArrowDown) for paddle movement, allowing both control schemes to work simultaneously",
-      "reqIds": [
-        "REQ-2"
-      ],
       "status": "pending"
     }
   ],
-  "gameProjectType": "2d",
-  "projectName": "Add WASD and arrow key controls to all games",
+  "gameProjectType": "3d",
+  "projectName": "Mechanical Assembly",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

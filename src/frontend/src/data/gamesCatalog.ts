@@ -28,4 +28,18 @@ export const gamesCatalog: GameMetadata[] = [
     thumbnail: '/assets/generated/breakout-preview.dim_400x300.png',
     controls: ['A/D or ← →', 'Space to Launch'],
   },
+  {
+    id: 'cookieclicker',
+    title: 'Cookie Clicker',
+    description: 'Click cookies and purchase upgrades to build your cookie empire. Buy auto-clickers, grandmas, farms, and more to generate cookies automatically!',
+    thumbnail: '/assets/generated/cookie-thumb.dim_200x150.png',
+    controls: ['Mouse to Click', 'Scroll to Browse Shop'],
+  },
+  {
+    id: 'assembly',
+    title: 'Mechanical Assembly',
+    description: 'Build complex machines in 3D! Drag and drop parts, snap them together, and complete assemblies before time runs out. Features multiple levels and local multiplayer mode.',
+    thumbnail: '/assets/generated/assembly-thumbnail.dim_400x300.png',
+    controls: ['Mouse to Drag Parts', 'R/E to Rotate', 'Click to Place'],
+  },
 ];

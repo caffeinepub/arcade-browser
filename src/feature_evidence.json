@@ -2,10 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-snakegame-to-accept-both-wasd-keys-w-up-a-left-s-down-d-right-and-arrow-keys-for-directional-movement-allowing-both-control-schemes-to-work-simultaneously",
-      "featureTitle": "Update SnakeGame to accept both WASD keys (W=up, A=left, S=down, D=right) and arrow keys for directional movement, allowing both control schemes to work simultaneously",
+      "featureId": "feature-add-a-drive-mode-toggle-button-to-the-assembly-game-ui-that-switches-between-build-mode-and-drive-mode",
+      "featureTitle": "Add a 'Drive Mode' toggle button to the assembly game UI that switches between Build Mode and Drive Mode",
       "files": [
-        "frontend/src/games/snake/SnakeGame.ts"
+        "frontend/src/games/assembly/AssemblyGame.ts",
+        "frontend/src/games/assembly/components/AssemblyUI.tsx",
+        "frontend/src/games/assembly/types.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -21,10 +23,32 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-breakoutgame-to-accept-both-wasd-keys-a-left-d-right-and-arrow-keys-arrowleft-arrowright-for-paddle-movement-allowing-both-control-schemes-to-work-simultaneously",
-      "featureTitle": "Update BreakoutGame to accept both WASD keys (A=left, D=right) and arrow keys (ArrowLeft, ArrowRight) for paddle movement, allowing both control schemes to work simultaneously",
+      "featureId": "feature-implement-wasd-keyboard-controls-for-driving-the-assembled-vehicle-in-drive-mode-w-forward-s-backward-a-turn-left-d-turn-right",
+      "featureTitle": "Implement WASD keyboard controls for driving the assembled vehicle in Drive Mode (W=forward, S=backward, A=turn left, D=turn right)",
       "files": [
-        "frontend/src/games/breakout/BreakoutGame.ts"
+        "frontend/src/games/assembly/AssemblyGame.ts",
+        "frontend/src/games/assembly/types.ts",
+        "frontend/src/games/assembly/utils/vehiclePhysics.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-third-person-camera-view-that-follows-behind-the-assembled-vehicle-during-drive-mode",
+      "featureTitle": "Implement a third-person camera view that follows behind the assembled vehicle during Drive Mode",
+      "files": [
+        "frontend/src/games/assembly/AssemblyGameCanvas.tsx",
+        "frontend/src/games/assembly/components/ThirdPersonCamera.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -40,11 +64,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-gamecontrolsoverlay-component-to-display-both-wasd-and-arrow-key-controls-for-each-game-in-the-controls-dialog",
-      "featureTitle": "Update the GameControlsOverlay component to display both WASD and arrow key controls for each game in the controls dialog",
+      "featureId": "feature-implement-moderately-realistic-vehicle-physics-with-momentum-friction-and-turning-dynamics-that-are-fun-to-control",
+      "featureTitle": "Implement moderately realistic vehicle physics with momentum, friction, and turning dynamics that are fun to control",
       "files": [
-        "frontend/src/components/GameControlsOverlay.tsx",
-        "frontend/src/data/gamesCatalog.ts"
+        "frontend/src/games/assembly/AssemblyGame.ts",
+        "frontend/src/games/assembly/utils/vehiclePhysics.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -56,6 +80,49 @@
       ],
       "testIds": [
         "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-disable-part-placement-inventory-interaction-and-assembly-mechanics-when-drive-mode-is-active",
+      "featureTitle": "Disable part placement, inventory interaction, and assembly mechanics when Drive Mode is active",
+      "files": [
+        "frontend/src/games/assembly/AssemblyGame.ts",
+        "frontend/src/games/assembly/AssemblyGameCanvas.tsx",
+        "frontend/src/games/assembly/components/PartsInventory.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-allow-driving-only-when-at-least-a-chassis-part-has-been-placed-in-the-assembly",
+      "featureTitle": "Allow driving only when at least a chassis part has been placed in the assembly",
+      "files": [
+        "frontend/src/games/assembly/AssemblyGame.ts",
+        "frontend/src/games/assembly/components/AssemblyUI.tsx",
+        "frontend/src/games/assembly/utils/vehiclePhysics.ts",
+        "frontend/src/games/assembly/utils/vehicleValidation.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
       ],
       "confidence": "high"
     }

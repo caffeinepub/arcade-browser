@@ -1,96 +1,132 @@
 {
   "kind": "build_request",
-  "title": "Add WASD and arrow key controls to all games",
+  "title": "Add free drive mode with WASD controls and third-person camera",
+  "projectName": "Mechanical Assembly",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update SnakeGame to accept both WASD keys (W=up, A=left, S=down, D=right) and arrow keys for directional movement, allowing both control schemes to work simultaneously",
+      "text": "Add a 'Drive Mode' toggle button to the assembly game UI that switches between Build Mode and Drive Mode",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-last"
         ],
         "quotes": [
-          "ok all the games shoud be able to use wasd and arrows to move"
+          "add a free use/drive mode",
+          "switch between building and driving"
         ]
       },
       "acceptanceCriteria": [
-        "Snake responds to W key for up movement",
-        "Snake responds to A key for left movement",
-        "Snake responds to S key for down movement",
-        "Snake responds to D key for right movement",
-        "Snake continues to respond to all arrow keys",
-        "Both WASD and arrow keys can be used interchangeably during gameplay"
+        "A clearly labeled button or toggle is visible in the assembly game interface",
+        "Clicking the toggle switches between Build Mode and Drive Mode",
+        "The current mode is clearly indicated to the user"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update PongGame to accept both WASD keys (W=up, S=down) and arrow keys (ArrowUp, ArrowDown) for paddle movement, allowing both control schemes to work simultaneously",
+      "text": "Implement WASD keyboard controls for driving the assembled vehicle in Drive Mode (W=forward, S=backward, A=turn left, D=turn right)",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-last"
         ],
         "quotes": [
-          "ok all the games shoud be able to use wasd and arrows to move"
+          "the drving should use wasd"
         ]
       },
       "acceptanceCriteria": [
-        "Pong paddle responds to W key for upward movement",
-        "Pong paddle responds to S key for downward movement",
-        "Pong paddle continues to respond to arrow up and arrow down keys",
-        "Both WASD and arrow keys can be used interchangeably during gameplay"
+        "W key accelerates the vehicle forward",
+        "S key moves the vehicle backward or brakes",
+        "A key turns the vehicle left",
+        "D key turns the vehicle right",
+        "Controls only respond when in Drive Mode"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Update BreakoutGame to accept both WASD keys (A=left, D=right) and arrow keys (ArrowLeft, ArrowRight) for paddle movement, allowing both control schemes to work simultaneously",
+      "text": "Implement a third-person camera view that follows behind the assembled vehicle during Drive Mode",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-last"
         ],
         "quotes": [
-          "ok all the games shoud be able to use wasd and arrows to move"
+          "third person view"
         ]
       },
       "acceptanceCriteria": [
-        "Breakout paddle responds to A key for left movement",
-        "Breakout paddle responds to D key for right movement",
-        "Breakout paddle continues to respond to arrow left and arrow right keys",
-        "Both WASD and arrow keys can be used interchangeably during gameplay"
+        "Camera is positioned behind and slightly above the vehicle",
+        "Camera smoothly follows the vehicle's position and rotation",
+        "The entire vehicle is visible in the frame",
+        "Camera maintains appropriate distance from the vehicle"
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Update the GameControlsOverlay component to display both WASD and arrow key controls for each game in the controls dialog",
+      "text": "Implement moderately realistic vehicle physics with momentum, friction, and turning dynamics that are fun to control",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-last"
         ],
         "quotes": [
-          "ok all the games shoud be able to use wasd and arrows to move"
+          "moderatly realistic",
+          "with momentum and friction, but still fun to control"
         ]
       },
       "acceptanceCriteria": [
-        "Controls overlay shows WASD keys alongside arrow keys for Snake",
-        "Controls overlay shows WASD keys alongside arrow keys for Pong",
-        "Controls overlay shows WASD keys alongside arrow keys for Breakout",
-        "Display format clearly indicates both control schemes are available"
+        "Vehicle has inertia and doesn't instantly start/stop",
+        "Friction gradually slows the vehicle when no input is applied",
+        "Turning radius feels realistic but responsive",
+        "Vehicle can tip or lose traction on sharp turns",
+        "Physics are challenging but not frustrating"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Disable part placement, inventory interaction, and assembly mechanics when Drive Mode is active",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Parts inventory is hidden or disabled in Drive Mode",
+        "Cannot place, move, or remove parts in Drive Mode",
+        "Can only control the vehicle movement and camera",
+        "Switching back to Build Mode re-enables all building features"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Allow driving only when at least a chassis part has been placed in the assembly",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Drive Mode button is disabled or shows a message if no chassis is placed",
+        "Vehicle can be driven once a valid chassis exists",
+        "Assembled wheels affect vehicle behavior if present"
       ]
     }
   ],
   "constraints": [
-    "Both WASD and arrow keys must work simultaneously without requiring mode switching",
-    "Existing arrow key controls must continue to function exactly as before",
-    "Do not modify backend files"
+    "Must use React Three Fiber for 3D rendering",
+    "Must integrate with existing AssemblyGame.ts engine and state management",
+    "Do not modify backend/main.mo",
+    "Do not break existing Build Mode functionality"
   ],
   "nonGoals": [
-    "Customizable key bindings or control remapping",
-    "Adding additional control schemes beyond WASD and arrows",
-    "Gamepad or touch control support"
+    "Multiplayer driving mode",
+    "First-person camera view",
+    "Realistic damage or destruction physics",
+    "Environmental obstacles or race tracks",
+    "Vehicle customization beyond existing parts"
   ],
   "imageRequirements": {
     "required": [],

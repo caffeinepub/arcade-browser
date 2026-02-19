@@ -3,6 +3,7 @@ import { GameMetadata } from '../data/gamesCatalog';
 import { SnakeGame } from '../games/snake/SnakeGame';
 import { PongGame } from '../games/pong/PongGame';
 import { BreakoutGame } from '../games/breakout/BreakoutGame';
+import { CookieClickerGame } from '../games/cookieclicker/CookieClickerGame';
 import { useGameLoop } from '../games/engine/useGameLoop';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,6 +11,7 @@ import GameControlsOverlay from './GameControlsOverlay';
 import ScoreSummary from './ScoreSummary';
 import LeaderboardPanel from './LeaderboardPanel';
 import { Play, RotateCcw, MousePointerClick } from 'lucide-react';
+import AssemblyGameCanvas from '../games/assembly/AssemblyGameCanvas';
 
 interface GameCanvasProps {
   game: GameMetadata;
@@ -18,7 +20,7 @@ interface GameCanvasProps {
 export default function GameCanvas({ game }: GameCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameContainerRef = useRef<HTMLDivElement>(null);
-  const gameInstanceRef = useRef<SnakeGame | PongGame | BreakoutGame | null>(null);
+  const gameInstanceRef = useRef<SnakeGame | PongGame | BreakoutGame | CookieClickerGame | null>(null);
   const [gameState, setGameState] = useState<'idle' | 'playing' | 'paused' | 'gameOver'>('idle');
   const [score, setScore] = useState(0);
   const [showControls, setShowControls] = useState(false);
@@ -40,7 +42,7 @@ export default function GameCanvas({ game }: GameCanvasProps) {
     }
 
     console.log('Creating game instance for:', game.id);
-    let instance: SnakeGame | PongGame | BreakoutGame | null = null;
+    let instance: SnakeGame | PongGame | BreakoutGame | CookieClickerGame | null = null;
 
     switch (game.id) {
       case 'snake':
@@ -51,6 +53,9 @@ export default function GameCanvas({ game }: GameCanvasProps) {
         break;
       case 'breakout':
         instance = new BreakoutGame(canvas, ctx);
+        break;
+      case 'cookieclicker':
+        instance = new CookieClickerGame(canvas, ctx);
         break;
       default:
         console.error('Unknown game id:', game.id);
@@ -155,7 +160,12 @@ export default function GameCanvas({ game }: GameCanvasProps) {
       gameLoop.stop();
       gameInstanceRef.current = null;
     };
-  }, []);
+  }, [gameLoop]);
+
+  // Handle 3D assembly game separately (after all hooks)
+  if (game.id === 'assembly') {
+    return <AssemblyGameCanvas gameId={game.id} />;
+  }
 
   // Show canvas error if context creation failed
   if (canvasError) {
@@ -173,6 +183,8 @@ export default function GameCanvas({ game }: GameCanvasProps) {
       </div>
     );
   }
+
+  const isCookieClicker = game.id === 'cookieclicker';
 
   return (
     <div className="space-y-6">
@@ -202,19 +214,21 @@ export default function GameCanvas({ game }: GameCanvasProps) {
                       <Play className="h-5 w-5" />
                       Start Game
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setShowControls(true)}
-                      className="ml-2"
-                    >
-                      Show Controls
-                    </Button>
+                    {!isCookieClicker && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowControls(true)}
+                        className="ml-2"
+                      >
+                        Show Controls
+                      </Button>
+                    )}
                   </div>
                 </div>
               )}
 
-              {gameState === 'playing' && !isFocused && (
+              {gameState === 'playing' && !isFocused && !isCookieClicker && (
                 <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/90 text-white px-4 py-2 rounded-lg flex items-center gap-2 border border-primary/50 animate-pulse">
                   <MousePointerClick className="h-4 w-4" />
                   <span className="text-sm font-medium">Click here to enable controls</span>
@@ -238,11 +252,13 @@ export default function GameCanvas({ game }: GameCanvasProps) {
 
           <div className="mt-4 flex items-center justify-between">
             <div className="text-lg font-semibold">
-              Score: <span className="text-primary">{score}</span>
+              {isCookieClicker ? 'Cookies' : 'Score'}: <span className="text-primary">{score.toLocaleString()}</span>
             </div>
-            <Button variant="outline" size="sm" onClick={() => setShowControls(true)}>
-              Show Controls
-            </Button>
+            {!isCookieClicker && (
+              <Button variant="outline" size="sm" onClick={() => setShowControls(true)}>
+                Show Controls
+              </Button>
+            )}
           </div>
         </div>
 
@@ -251,11 +267,13 @@ export default function GameCanvas({ game }: GameCanvasProps) {
         </div>
       </div>
 
-      <GameControlsOverlay
-        game={game}
-        open={showControls}
-        onClose={() => setShowControls(false)}
-      />
+      {!isCookieClicker && (
+        <GameControlsOverlay
+          game={game}
+          open={showControls}
+          onClose={() => setShowControls(false)}
+        />
+      )}
     </div>
   );
 }

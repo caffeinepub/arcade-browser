@@ -1,80 +1,162 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add WASD and arrow key controls to all games",
+  "title": "Add free drive mode with WASD controls and third-person camera",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Update SnakeGame to accept both WASD keys (W=up, A=left, S=down, D=right) and arrow keys for directional movement, allowing both control schemes to work simultaneously",
+      "summary": "Add a 'Drive Mode' toggle button to the assembly game UI that switches between Build Mode and Drive Mode",
       "acceptanceCriteria": [
-        "Snake responds to W key for up movement",
-        "Snake responds to A key for left movement",
-        "Snake responds to S key for down movement",
-        "Snake responds to D key for right movement",
-        "Snake continues to respond to all arrow keys",
-        "Both WASD and arrow keys can be used interchangeably during gameplay"
+        "A clearly labeled button or toggle is visible in the assembly game interface",
+        "Clicking the toggle switches between Build Mode and Drive Mode",
+        "The current mode is clearly indicated to the user"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/games/snake/SnakeGame.ts",
+          "path": "frontend/src/games/assembly/types.ts",
           "operation": "modify",
-          "description": "Extend the handleInput method to accept both WASD keys and arrow keys for directional control. Map 'w'/'W' to up, 'a'/'A' to left, 's'/'S' to down, and 'd'/'D' to right, while preserving existing ArrowUp, ArrowLeft, ArrowDown, and ArrowRight key handling. Ensure both control schemes can be used interchangeably without mode switching."
+          "description": "Add GameMode type ('build' | 'drive') to AssemblyState interface to track current mode"
+        },
+        {
+          "path": "frontend/src/games/assembly/AssemblyGame.ts",
+          "operation": "modify",
+          "description": "Add gameMode state property and toggleGameMode method to AssemblyGame class. Initialize gameMode to 'build'. Implement mode switching logic that preserves game state"
+        },
+        {
+          "path": "frontend/src/games/assembly/components/AssemblyUI.tsx",
+          "operation": "modify",
+          "description": "Add a toggle button component to the HUD that displays current mode and allows switching between Build and Drive modes. Button should be disabled when no chassis is placed (REQ-6 requirement). Show clear visual indication of active mode"
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Update PongGame to accept both WASD keys (W=up, S=down) and arrow keys (ArrowUp, ArrowDown) for paddle movement, allowing both control schemes to work simultaneously",
+      "summary": "Implement WASD keyboard controls for driving the assembled vehicle in Drive Mode (W=forward, S=backward, A=turn left, D=turn right)",
       "acceptanceCriteria": [
-        "Pong paddle responds to W key for upward movement",
-        "Pong paddle responds to S key for downward movement",
-        "Pong paddle continues to respond to arrow up and arrow down keys",
-        "Both WASD and arrow keys can be used interchangeably during gameplay"
+        "W key accelerates the vehicle forward",
+        "S key moves the vehicle backward or brakes",
+        "A key turns the vehicle left",
+        "D key turns the vehicle right",
+        "Controls only respond when in Drive Mode"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/games/pong/PongGame.ts",
+          "path": "frontend/src/games/assembly/types.ts",
           "operation": "modify",
-          "description": "Extend the handleInput method to accept both WASD keys and arrow keys for paddle control. Map 'w'/'W' to upward movement and 's'/'S' to downward movement, while preserving existing ArrowUp and ArrowDown key handling. Ensure both control schemes can be used interchangeably without mode switching."
+          "description": "Add VehiclePhysics interface with properties for velocity, acceleration, rotation, angularVelocity, and friction coefficients. Add driveState to AssemblyState containing vehicle physics data"
+        },
+        {
+          "path": "frontend/src/games/assembly/AssemblyGame.ts",
+          "operation": "modify",
+          "description": "Add handleInput override that processes WASD keys only when gameMode is 'drive'. Implement vehicle control logic: W increases forward velocity, S applies braking/reverse, A/D control angular velocity for turning. Integrate with physics update loop"
+        },
+        {
+          "path": "frontend/src/games/assembly/utils/vehiclePhysics.ts",
+          "operation": "create",
+          "description": "Create utility module for vehicle physics calculations including acceleration, velocity integration, friction application, turning dynamics with momentum, and collision response. Implement moderately realistic physics with fun, responsive controls (REQ-4)"
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Update BreakoutGame to accept both WASD keys (A=left, D=right) and arrow keys (ArrowLeft, ArrowRight) for paddle movement, allowing both control schemes to work simultaneously",
+      "summary": "Implement a third-person camera view that follows behind the assembled vehicle during Drive Mode",
       "acceptanceCriteria": [
-        "Breakout paddle responds to A key for left movement",
-        "Breakout paddle responds to D key for right movement",
-        "Breakout paddle continues to respond to arrow left and arrow right keys",
-        "Both WASD and arrow keys can be used interchangeably during gameplay"
+        "Camera is positioned behind and slightly above the vehicle",
+        "Camera smoothly follows the vehicle's position and rotation",
+        "The entire vehicle is visible in the frame",
+        "Camera maintains appropriate distance from the vehicle"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/games/breakout/BreakoutGame.ts",
+          "path": "frontend/src/games/assembly/components/ThirdPersonCamera.tsx",
+          "operation": "create",
+          "description": "Create React Three Fiber component that implements a third-person camera using useThree and useFrame hooks. Position camera behind and above the vehicle's center of mass. Implement smooth follow with lerp interpolation for position and rotation. Calculate appropriate distance based on vehicle bounding box to keep entire vehicle visible"
+        },
+        {
+          "path": "frontend/src/games/assembly/AssemblyGameCanvas.tsx",
           "operation": "modify",
-          "description": "Extend the handleInput method to accept both WASD keys and arrow keys for paddle control. Map 'a'/'A' to left movement and 'd'/'D' to right movement, while preserving existing ArrowLeft and ArrowRight key handling. Ensure both control schemes can be used interchangeably without mode switching."
+          "description": "Conditionally render ThirdPersonCamera component when gameMode is 'drive', otherwise use default orthographic/perspective camera for build mode. Pass vehicle position and rotation as props to camera component"
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Update the GameControlsOverlay component to display both WASD and arrow key controls for each game in the controls dialog",
+      "summary": "Implement moderately realistic vehicle physics with momentum, friction, and turning dynamics that are fun to control",
       "acceptanceCriteria": [
-        "Controls overlay shows WASD keys alongside arrow keys for Snake",
-        "Controls overlay shows WASD keys alongside arrow keys for Pong",
-        "Controls overlay shows WASD keys alongside arrow keys for Breakout",
-        "Display format clearly indicates both control schemes are available"
+        "Vehicle has inertia and doesn't instantly start/stop",
+        "Friction gradually slows the vehicle when no input is applied",
+        "Turning radius feels realistic but responsive",
+        "Vehicle can tip or lose traction on sharp turns",
+        "Physics are challenging but not frustrating"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/data/gamesCatalog.ts",
+          "path": "frontend/src/games/assembly/utils/vehiclePhysics.ts",
           "operation": "modify",
-          "description": "Update the controls array in each game's metadata (Snake, Pong, and Breakout) to include both WASD keys and arrow keys. For Snake, add 'W/↑', 'A/←', 'S/↓', 'D/→' alongside or replacing the existing arrow key descriptions. For Pong, add 'W/↑' and 'S/↓'. For Breakout, add 'A/←' and 'D/→'. Ensure the format clearly indicates both control schemes are available for each action."
+          "description": "Implement physics functions with momentum-based acceleration (gradual speed changes), friction that reduces velocity when no input, turning that affects angular velocity with configurable turn rate, and lateral friction for drift/traction loss on sharp turns. Tune parameters for fun responsiveness: moderate acceleration/deceleration rates, smooth turning with slight drift feel, and forgiving tip thresholds"
         },
         {
-          "path": "frontend/src/components/GameControlsOverlay.tsx",
+          "path": "frontend/src/games/assembly/AssemblyGame.ts",
           "operation": "modify",
-          "description": "Update the controls rendering logic to properly display combined WASD and arrow key notations from the updated gamesCatalog. Ensure the key badge rendering handles the dual notation format (e.g., 'W/↑') and displays it clearly to users, making it obvious that both control schemes work simultaneously."
+          "description": "In the update loop, apply physics calculations from vehiclePhysics module to driveState each frame. Update vehicle position and rotation based on velocity and angular velocity. Apply friction when no input is detected. Clamp values to prevent unrealistic speeds"
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Disable part placement, inventory interaction, and assembly mechanics when Drive Mode is active",
+      "acceptanceCriteria": [
+        "Parts inventory is hidden or disabled in Drive Mode",
+        "Cannot place, move, or remove parts in Drive Mode",
+        "Can only control the vehicle movement and camera",
+        "Switching back to Build Mode re-enables all building features"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/games/assembly/components/PartsInventory.tsx",
+          "operation": "modify",
+          "description": "Accept gameMode prop and conditionally hide or disable the inventory UI when gameMode is 'drive'. Show a subtle message indicating inventory is unavailable in Drive Mode"
+        },
+        {
+          "path": "frontend/src/games/assembly/AssemblyGameCanvas.tsx",
+          "operation": "modify",
+          "description": "Pass gameMode to PartsInventory component. Disable part selection, dragging, and placement handlers when gameMode is 'drive'. Prevent mouse/pointer interactions with parts in Drive Mode"
+        },
+        {
+          "path": "frontend/src/games/assembly/AssemblyGame.ts",
+          "operation": "modify",
+          "description": "Add gameMode guard to selectPart, startDragging, and placePart methods to prevent assembly operations when in Drive Mode. Return early or no-op when gameMode is 'drive'"
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Allow driving only when at least a chassis part has been placed in the assembly",
+      "acceptanceCriteria": [
+        "Drive Mode button is disabled or shows a message if no chassis is placed",
+        "Vehicle can be driven once a valid chassis exists",
+        "Assembled wheels affect vehicle behavior if present"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/games/assembly/utils/vehicleValidation.ts",
+          "operation": "create",
+          "description": "Create utility function hasValidChassis that checks if at least one chassis-type part exists in the placed parts array. Add function to count wheels and return wheel count for physics tuning"
+        },
+        {
+          "path": "frontend/src/games/assembly/AssemblyGame.ts",
+          "operation": "modify",
+          "description": "Add canEnterDriveMode method that uses hasValidChassis to determine if Drive Mode can be activated. Call this method before allowing mode switch in toggleGameMode"
+        },
+        {
+          "path": "frontend/src/games/assembly/components/AssemblyUI.tsx",
+          "operation": "modify",
+          "description": "Disable the Drive Mode toggle button when canEnterDriveMode returns false. Display tooltip or helper text explaining that a chassis is required to enter Drive Mode. Update button styling to indicate disabled state"
+        },
+        {
+          "path": "frontend/src/games/assembly/utils/vehiclePhysics.ts",
+          "operation": "modify",
+          "description": "Adjust physics parameters based on wheel count from vehicleValidation. More wheels provide better traction and handling. Fewer wheels increase drift and reduce acceleration"
         }
       ]
     }

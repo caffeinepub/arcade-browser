@@ -1,0 +1,63 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-snakegame-to-accept-both-wasd-keys-w-up-a-left-s-down-d-right-and-arrow-keys-for-directional-movement-allowing-both-control-schemes-to-work-simultaneously",
+      "featureTitle": "Update SnakeGame to accept both WASD keys (W=up, A=left, S=down, D=right) and arrow keys for directional movement, allowing both control schemes to work simultaneously",
+      "files": [
+        "frontend/src/games/snake/SnakeGame.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-breakoutgame-to-accept-both-wasd-keys-a-left-d-right-and-arrow-keys-arrowleft-arrowright-for-paddle-movement-allowing-both-control-schemes-to-work-simultaneously",
+      "featureTitle": "Update BreakoutGame to accept both WASD keys (A=left, D=right) and arrow keys (ArrowLeft, ArrowRight) for paddle movement, allowing both control schemes to work simultaneously",
+      "files": [
+        "frontend/src/games/breakout/BreakoutGame.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-gamecontrolsoverlay-component-to-display-both-wasd-and-arrow-key-controls-for-each-game-in-the-controls-dialog",
+      "featureTitle": "Update the GameControlsOverlay component to display both WASD and arrow key controls for each game in the controls dialog",
+      "files": [
+        "frontend/src/components/GameControlsOverlay.tsx",
+        "frontend/src/data/gamesCatalog.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

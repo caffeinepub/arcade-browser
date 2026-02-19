@@ -1,0 +1,82 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Add WASD and arrow key controls to all games",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Update SnakeGame to accept both WASD keys (W=up, A=left, S=down, D=right) and arrow keys for directional movement, allowing both control schemes to work simultaneously",
+      "acceptanceCriteria": [
+        "Snake responds to W key for up movement",
+        "Snake responds to A key for left movement",
+        "Snake responds to S key for down movement",
+        "Snake responds to D key for right movement",
+        "Snake continues to respond to all arrow keys",
+        "Both WASD and arrow keys can be used interchangeably during gameplay"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/games/snake/SnakeGame.ts",
+          "operation": "modify",
+          "description": "Extend the handleInput method to accept both WASD keys and arrow keys for directional control. Map 'w'/'W' to up, 'a'/'A' to left, 's'/'S' to down, and 'd'/'D' to right, while preserving existing ArrowUp, ArrowLeft, ArrowDown, and ArrowRight key handling. Ensure both control schemes can be used interchangeably without mode switching."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Update PongGame to accept both WASD keys (W=up, S=down) and arrow keys (ArrowUp, ArrowDown) for paddle movement, allowing both control schemes to work simultaneously",
+      "acceptanceCriteria": [
+        "Pong paddle responds to W key for upward movement",
+        "Pong paddle responds to S key for downward movement",
+        "Pong paddle continues to respond to arrow up and arrow down keys",
+        "Both WASD and arrow keys can be used interchangeably during gameplay"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/games/pong/PongGame.ts",
+          "operation": "modify",
+          "description": "Extend the handleInput method to accept both WASD keys and arrow keys for paddle control. Map 'w'/'W' to upward movement and 's'/'S' to downward movement, while preserving existing ArrowUp and ArrowDown key handling. Ensure both control schemes can be used interchangeably without mode switching."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Update BreakoutGame to accept both WASD keys (A=left, D=right) and arrow keys (ArrowLeft, ArrowRight) for paddle movement, allowing both control schemes to work simultaneously",
+      "acceptanceCriteria": [
+        "Breakout paddle responds to A key for left movement",
+        "Breakout paddle responds to D key for right movement",
+        "Breakout paddle continues to respond to arrow left and arrow right keys",
+        "Both WASD and arrow keys can be used interchangeably during gameplay"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/games/breakout/BreakoutGame.ts",
+          "operation": "modify",
+          "description": "Extend the handleInput method to accept both WASD keys and arrow keys for paddle control. Map 'a'/'A' to left movement and 'd'/'D' to right movement, while preserving existing ArrowLeft and ArrowRight key handling. Ensure both control schemes can be used interchangeably without mode switching."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Update the GameControlsOverlay component to display both WASD and arrow key controls for each game in the controls dialog",
+      "acceptanceCriteria": [
+        "Controls overlay shows WASD keys alongside arrow keys for Snake",
+        "Controls overlay shows WASD keys alongside arrow keys for Pong",
+        "Controls overlay shows WASD keys alongside arrow keys for Breakout",
+        "Display format clearly indicates both control schemes are available"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/data/gamesCatalog.ts",
+          "operation": "modify",
+          "description": "Update the controls array in each game's metadata (Snake, Pong, and Breakout) to include both WASD keys and arrow keys. For Snake, add 'W/↑', 'A/←', 'S/↓', 'D/→' alongside or replacing the existing arrow key descriptions. For Pong, add 'W/↑' and 'S/↓'. For Breakout, add 'A/←' and 'D/→'. Ensure the format clearly indicates both control schemes are available for each action."
+        },
+        {
+          "path": "frontend/src/components/GameControlsOverlay.tsx",
+          "operation": "modify",
+          "description": "Update the controls rendering logic to properly display combined WASD and arrow key notations from the updated gamesCatalog. Ensure the key badge rendering handles the dual notation format (e.g., 'W/↑') and displays it clearly to users, making it obvious that both control schemes work simultaneously."
+        }
+      ]
+    }
+  ]
+}

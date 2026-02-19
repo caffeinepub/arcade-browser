@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+        --background: 0.15 0 0;
+        --foreground: 0.95 0 0;
+        --card: 0.20 0 0;
+        --card-foreground: 0.95 0 0;
+        --popover: 0.22 0 0;
+        --popover-foreground: 0.95 0 0;
+        --primary: 0.70 0.20 142;
+        --primary-foreground: 0.10 0 0;
+        --secondary: 0.65 0.22 35;
+        --secondary-foreground: 0.10 0 0;
+        --muted: 0.30 0 0;
+        --muted-foreground: 0.65 0 0;
+        --accent: 0.35 0 0;
+        --accent-foreground: 0.95 0 0;
+        --destructive: 0.60 0.24 25;
+        --destructive-foreground: 0.95 0 0;
+        --border: 0.35 0 0;
+        --input: 0.30 0 0;
+        --ring: 0.70 0.20 142;
+        --chart-1: 0.70 0.20 142;
+        --chart-2: 0.65 0.22 35;
+        --chart-3: 0.60 0.24 25;
+        --chart-4: 0.55 0.18 280;
+        --chart-5: 0.65 0.20 180;
+    }
+
+    .dark {
+        --background: 0.10 0 0;
+        --foreground: 0.95 0 0;
+        --card: 0.15 0 0;
+        --card-foreground: 0.95 0 0;
+        --popover: 0.18 0 0;
+        --popover-foreground: 0.95 0 0;
+        --primary: 0.70 0.20 142;
+        --primary-foreground: 0.10 0 0;
+        --secondary: 0.65 0.22 35;
+        --secondary-foreground: 0.10 0 0;
+        --muted: 0.25 0 0;
+        --muted-foreground: 0.60 0 0;
+        --accent: 0.30 0 0;
+        --accent-foreground: 0.95 0 0;
+        --destructive: 0.60 0.24 25;
+        --destructive-foreground: 0.95 0 0;
+        --border: 0.30 0 0;
+        --input: 0.25 0 0;
+        --ring: 0.70 0.20 142;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+}
+
+@layer utilities {
+    .arcade-bg {
+        background-image: url('/assets/generated/arcade-bg-pattern.dim_1920x1080.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .arcade-title {
+        font-family: 'Courier New', monospace;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        text-shadow: 0 0 10px oklch(var(--primary) / 0.5);
+    }
+}

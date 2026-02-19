@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Multi-game arcade with WASD and arrow key controls",
+  "architectural_notes": [
+    "All games support both WASD and arrow key controls simultaneously for player movement"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-update-snakegame-to-accept-both-wasd-keys-w-up-a-left-s-down-d-right-and-arrow-keys-for-directional-movement-allowing-both-control-schemes-to-work-simultaneously",
+      "title": "Update SnakeGame to accept both WASD keys (W=up, A=left, S=down, D=right) and arrow keys for directional movement, allowing both control schemes to work simultaneously",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-breakoutgame-to-accept-both-wasd-keys-a-left-d-right-and-arrow-keys-arrowleft-arrowright-for-paddle-movement-allowing-both-control-schemes-to-work-simultaneously",
+      "title": "Update BreakoutGame to accept both WASD keys (A=left, D=right) and arrow keys (ArrowLeft, ArrowRight) for paddle movement, allowing both control schemes to work simultaneously",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-gamecontrolsoverlay-component-to-display-both-wasd-and-arrow-key-controls-for-each-game-in-the-controls-dialog",
+      "title": "Update the GameControlsOverlay component to display both WASD and arrow key controls for each game in the controls dialog",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Add WASD and arrow key controls to all games for movement",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Update PongGame to accept both WASD keys (W=up, S=down) and arrow keys (ArrowUp, ArrowDown) for paddle movement, allowing both control schemes to work simultaneously",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "2d",
+  "projectName": "Add WASD and arrow key controls to all games",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

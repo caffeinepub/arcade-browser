@@ -1,0 +1,99 @@
+{
+  "kind": "build_request",
+  "title": "Add WASD and arrow key controls to all games",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Update SnakeGame to accept both WASD keys (W=up, A=left, S=down, D=right) and arrow keys for directional movement, allowing both control schemes to work simultaneously",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "ok all the games shoud be able to use wasd and arrows to move"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Snake responds to W key for up movement",
+        "Snake responds to A key for left movement",
+        "Snake responds to S key for down movement",
+        "Snake responds to D key for right movement",
+        "Snake continues to respond to all arrow keys",
+        "Both WASD and arrow keys can be used interchangeably during gameplay"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Update PongGame to accept both WASD keys (W=up, S=down) and arrow keys (ArrowUp, ArrowDown) for paddle movement, allowing both control schemes to work simultaneously",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "ok all the games shoud be able to use wasd and arrows to move"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Pong paddle responds to W key for upward movement",
+        "Pong paddle responds to S key for downward movement",
+        "Pong paddle continues to respond to arrow up and arrow down keys",
+        "Both WASD and arrow keys can be used interchangeably during gameplay"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Update BreakoutGame to accept both WASD keys (A=left, D=right) and arrow keys (ArrowLeft, ArrowRight) for paddle movement, allowing both control schemes to work simultaneously",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "ok all the games shoud be able to use wasd and arrows to move"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Breakout paddle responds to A key for left movement",
+        "Breakout paddle responds to D key for right movement",
+        "Breakout paddle continues to respond to arrow left and arrow right keys",
+        "Both WASD and arrow keys can be used interchangeably during gameplay"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Update the GameControlsOverlay component to display both WASD and arrow key controls for each game in the controls dialog",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "ok all the games shoud be able to use wasd and arrows to move"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Controls overlay shows WASD keys alongside arrow keys for Snake",
+        "Controls overlay shows WASD keys alongside arrow keys for Pong",
+        "Controls overlay shows WASD keys alongside arrow keys for Breakout",
+        "Display format clearly indicates both control schemes are available"
+      ]
+    }
+  ],
+  "constraints": [
+    "Both WASD and arrow keys must work simultaneously without requiring mode switching",
+    "Existing arrow key controls must continue to function exactly as before",
+    "Do not modify backend files"
+  ],
+  "nonGoals": [
+    "Customizable key bindings or control remapping",
+    "Adding additional control schemes beyond WASD and arrows",
+    "Gamepad or touch control support"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
